@@ -1,0 +1,17 @@
+[package]
+name = "ccgeom"
+version = "0.0.1"
+authors = ["Alexey Gerasev <alexey.gerasev@gmail.com>"]
+edition = "2018"
+
+description = "Constant curvature geometry"
+documentation = "https://docs.rs/ccgeom"
+homepage = "https://github.com/agerasev/ccgeom"
+repository = "https://github.com/agerasev/ccgeom"
+readme = "README.md"
+keywords = ["non-euclidean", "geometry"]
+categories = ["algorithms", "data-structures", "science"]
+license = "MIT/Apache-2.0"
+
+[dependencies]
+vecmat = "0.6"
