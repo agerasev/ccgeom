@@ -54,3 +54,8 @@ pub trait Geometry3<T: Scalar> {
     fn move_at_pos(pos: Self::Pos) -> Self::Map;
     fn move_at_dir(dir: Self::Dir, dist: T) -> Self::Map;
 }
+
+/*
+pub trait Geo3<T: Scalar>: Geometry3<T> {}
+impl<T: Scalar, G: Geometry3<T>> Geo3<T> for G {}
+*/

@@ -80,3 +80,5 @@ impl<T: Scalar> Geometry3<T> for Euclidean3<T> {
         Self::move_at_pos(dir.into_vec() * dist)
     }
 }
+
+pub type Eu3<T> = Euclidean3<T>;
