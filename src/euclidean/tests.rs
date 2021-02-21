@@ -2,7 +2,7 @@ use vecmat::{Vector, transform::{Affine, Rotation3, Shift}, distr::{Normal, Unif
 use approx::assert_abs_diff_eq;
 use rand::{Rng, SeedableRng};
 use rand_xorshift::XorShiftRng;
-use crate::{Geometry3, Eu3, Map};
+use crate::{Geometry3, Euclidean3 as Eu3, Map};
 
 const SAMPLE_ATTEMPTS: usize = 256;
 const EPS: f64 = 1e-14;

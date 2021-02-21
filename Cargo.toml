@@ -15,9 +15,9 @@ license = "MIT/Apache-2.0"
 
 [dependencies]
 num-traits = "0.2"
-vecmat = { version = "0.6", features = ["rand", "approx"] }
-rand = "0.7"
+vecmat = "0.6"
+rand = "0.8"
 approx = "0.4"
 
 [dev-dependencies]
-rand_xorshift = "0.2"
+rand_xorshift = "0.3"

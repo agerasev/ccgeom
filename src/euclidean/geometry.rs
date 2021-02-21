@@ -1,7 +1,7 @@
 use std::marker::PhantomData;
 use num_traits::{Zero};
 use vecmat::{Vector, transform::{Transform, Affine, Linear, Shift, Rotation3}};
-use crate::{geometry::{Geometry3, Scalar}, UnitVector};
+use crate::geometry::{Geometry3, Scalar};
 
 enum EmptyEnum {}
 #[allow(dead_code)]
@@ -15,13 +15,13 @@ impl<T: Scalar> Euclidean3<T> {
         Affine::new(Linear::identity(), pos.into())
     }
     fn rotate(axis: <Self as Geometry3<T>>::Dir, phi: T) -> <Self as Geometry3<T>>::Map {
-        Affine::new(Rotation3::new(axis.into_vec(), phi).to_linear(), Shift::identity())
+        Affine::new(Rotation3::new(axis, phi).to_linear(), Shift::identity())
     }
 }
 
 impl<T: Scalar> Geometry3<T> for Euclidean3<T> {
     type Pos = Vector<T, 3>;
-    type Dir = UnitVector<T, 3>;
+    type Dir = Vector<T, 3>;
     type Map = Affine<T, 3>;
 
     fn origin() -> Self::Pos {
@@ -57,28 +57,26 @@ impl<T: Scalar> Geometry3<T> for Euclidean3<T> {
     }
 
     fn rotate_x(angle: T) -> Self::Map {
-        Self::rotate(Vector::from([T::one(), T::zero(), T::zero()]).into(), angle)
+        Self::rotate(Vector::from([T::one(), T::zero(), T::zero()]), angle)
     }
     fn rotate_y(angle: T) -> Self::Map {
-        Self::rotate(Vector::from([T::zero(), T::one(), T::zero()]).into(), angle)
+        Self::rotate(Vector::from([T::zero(), T::one(), T::zero()]), angle)
     }
     fn rotate_z(angle: T) -> Self::Map {
-        Self::rotate(Vector::from([T::zero(), T::zero(), T::one()]).into(), angle)
+        Self::rotate(Vector::from([T::zero(), T::zero(), T::one()]), angle)
     }
 
     fn look_at_pos(pos: Self::Pos) -> Self::Map {
-        Self::look_at_dir(UnitVector::from(pos))
+        Self::look_at_dir(pos.normalize())
     }
     fn look_at_dir(dir: Self::Dir) -> Self::Map {
-        Affine::new(Linear::look_at_any(dir.into_vec()), Shift::identity())
+        Affine::new(Linear::look_at_any(dir), Shift::identity())
     }
 
     fn move_at_pos(pos: Self::Pos) -> Self::Map {
         Self::shift(-pos)
     }
     fn move_at_dir(dir: Self::Dir, dist: T) -> Self::Map {
-        Self::move_at_pos(dir.into_vec() * dist)
+        Self::move_at_pos(dir * dist)
     }
 }
-
-pub type Eu3<T> = Euclidean3<T>;

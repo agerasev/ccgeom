@@ -1,14 +1,14 @@
-use num_traits::{Float, FromPrimitive, ToPrimitive};
+use num_traits::{Float, FloatConst, NumCast};
 use crate::euclidean::Euclidean3;
 
-pub trait Scalar: Float + FromPrimitive + ToPrimitive {}
-impl<T> Scalar for T where T: Float + FromPrimitive + ToPrimitive {}
+pub trait Scalar: Float + NumCast + FloatConst {}
+impl<T> Scalar for T where T: Float + NumCast + FloatConst {}
 
 pub trait Map<P, D> {
     fn identity() -> Self;
 
-    fn apply_pos(self, pos: P) -> P;
-    fn apply_dir(self, pos: P, dir: D) -> D;
+    fn apply_pos(&self, pos: P) -> P;
+    fn apply_dir(&self, pos: P, dir: D) -> D;
     
     fn chain(self, other: Self) -> Self;
     
@@ -54,8 +54,3 @@ pub trait Geometry3<T: Scalar> {
     fn move_at_pos(pos: Self::Pos) -> Self::Map;
     fn move_at_dir(dir: Self::Dir, dist: T) -> Self::Map;
 }
-
-/*
-pub trait Geo3<T: Scalar>: Geometry3<T> {}
-impl<T: Scalar, G: Geometry3<T>> Geo3<T> for G {}
-*/
