@@ -5,7 +5,7 @@ use crate::geometry::{Geometry3, Scalar};
 
 enum EmptyEnum {}
 #[allow(dead_code)]
-pub struct Euclidean3<T: Scalar> {
+pub struct Euclidean3<T: Scalar = f64> {
     phantom: PhantomData<T>,
     empty_enum: EmptyEnum,
 }

@@ -15,7 +15,7 @@ pub trait Map<P, D> {
     fn inv(self) -> Self;
 }
 
-pub trait Geometry3<T: Scalar> {
+pub trait Geometry3<T: Scalar = f64> {
     type Pos;
     type Dir;
     type Map: Map<Self::Pos, Self::Dir>;

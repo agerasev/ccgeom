@@ -5,7 +5,7 @@ use crate::{geometry::{Geometry3, Scalar}, euclidean::Euclidean3 as Eu3, hyperbo
 
 enum EmptyEnum {}
 #[allow(dead_code)]
-pub struct Hyperbolic3<T: Scalar> {
+pub struct Hyperbolic3<T: Scalar = f64> {
     phantom: PhantomData<T>,
     empty_enum: EmptyEnum,
 }
