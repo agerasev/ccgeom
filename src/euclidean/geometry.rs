@@ -1,7 +1,8 @@
 use std::marker::PhantomData;
 use num_traits::{Zero};
-use vecmat::{Vector, transform::{Transform, Affine, Linear, Shift, Rotation3}};
+use vecmat::{Vector, transform::{Transform, Shift, Rotation3}};
 use crate::geometry::{Geometry3, Scalar};
+use super::Homogenous3;
 
 enum EmptyEnum {}
 #[allow(dead_code)]
@@ -12,17 +13,17 @@ pub struct Euclidean3<T: Scalar = f64> {
 
 impl<T: Scalar> Euclidean3<T> {
     fn shift(pos: <Self as Geometry3<T>>::Pos) -> <Self as Geometry3<T>>::Map {
-        Affine::new(Linear::identity(), pos.into())
+        Homogenous3::new(pos.into(), Rotation3::identity())
     }
     fn rotate(axis: <Self as Geometry3<T>>::Dir, phi: T) -> <Self as Geometry3<T>>::Map {
-        Affine::new(Rotation3::new(axis, phi).to_linear(), Shift::identity())
+        Homogenous3::new(Shift::identity(), Rotation3::new(axis, phi))
     }
 }
 
 impl<T: Scalar> Geometry3<T> for Euclidean3<T> {
     type Pos = Vector<T, 3>;
     type Dir = Vector<T, 3>;
-    type Map = Affine<T, 3>;
+    type Map = Homogenous3<T>;
 
     fn origin() -> Self::Pos {
         Self::Pos::zero()
@@ -70,11 +71,11 @@ impl<T: Scalar> Geometry3<T> for Euclidean3<T> {
         Self::look_at_dir(pos.normalize())
     }
     fn look_at_dir(dir: Self::Dir) -> Self::Map {
-        Affine::new(Linear::look_at_any(dir), Shift::identity())
+        Homogenous3::new(Shift::identity(), Rotation3::look_at_any(dir))
     }
 
     fn move_at_pos(pos: Self::Pos) -> Self::Map {
-        Self::shift(-pos)
+        Self::shift(pos)
     }
     fn move_at_dir(dir: Self::Dir, dist: T) -> Self::Map {
         Self::move_at_pos(dir * dist)
