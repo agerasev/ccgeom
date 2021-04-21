@@ -1,19 +1,4 @@
-use num_traits::{Float, FloatConst, NumCast};
-use crate::euclidean::Euclidean3;
-
-pub trait Scalar: Float + NumCast + FloatConst {}
-impl<T> Scalar for T where T: Float + NumCast + FloatConst {}
-
-pub trait Map<P, D> {
-    fn identity() -> Self;
-
-    fn apply_pos(&self, pos: P) -> P;
-    fn apply_dir(&self, pos: P, dir: D) -> D;
-    
-    fn chain(self, other: Self) -> Self;
-    
-    fn inv(self) -> Self;
-}
+use crate::{Scalar, Map, euclidean::Euclidean3};
 
 pub trait Geometry3<T: Scalar = f64> {
     type Pos;

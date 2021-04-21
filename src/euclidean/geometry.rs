@@ -1,7 +1,7 @@
 use std::marker::PhantomData;
 use num_traits::{Zero};
 use vecmat::{Vector, transform::{Transform, Shift, Rotation3}};
-use crate::geometry::{Geometry3, Scalar};
+use crate::{Geometry3, Scalar};
 use super::Homogenous3;
 
 enum EmptyEnum {}

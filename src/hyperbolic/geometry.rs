@@ -1,7 +1,7 @@
 use std::marker::PhantomData;
 use num_traits::{Zero, One};
 use vecmat::complex::{Complex, Quaternion, Moebius};
-use crate::{geometry::{Geometry3, Scalar}, euclidean::Euclidean3 as Eu3, hyperbolic::Poincare3};
+use crate::{Geometry3, Scalar, euclidean::Euclidean3 as Eu3, hyperbolic::Poincare3};
 
 enum EmptyEnum {}
 #[allow(dead_code)]

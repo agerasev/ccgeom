@@ -1,6 +1,6 @@
 use rand::{distributions::Distribution, Rng};
 use vecmat::{complex::{Complex, Quaternion}, distr::Normal};
-use crate::geometry::Scalar;
+use crate::Scalar;
 
 /// Poincare half-space model.
 pub trait Poincare3<T: Scalar> {
