@@ -1,6 +1,6 @@
 use vecmat::{Transform, traits::Normalize};
 
-pub trait Map<P, D> {
+pub trait Map<P, D = P> {
     fn identity() -> Self;
 
     fn apply_pos(&self, pos: P) -> P;

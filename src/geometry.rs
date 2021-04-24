@@ -1,6 +1,6 @@
 use crate::{Scalar, Map, euclidean::Euclidean3};
 
-pub trait Geometry3<T: Scalar = f64> {
+pub trait Geometry3<T: Scalar = f64>: 'static {
     type Pos;
     type Dir;
     type Map: Map<Self::Pos, Self::Dir>;
