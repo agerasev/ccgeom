@@ -12,8 +12,9 @@ pub struct Euclidean3<T: Scalar = f64> {
 }
 
 impl<T: Scalar> Euclidean3<T> {
+    /// Transformation that translates `pos` to the origin.
     fn shift(pos: <Self as Geometry3<T>>::Pos) -> <Self as Geometry3<T>>::Map {
-        Homogenous3::new(pos.into(), Rotation3::identity())
+        Homogenous3::new((-pos).into(), Rotation3::identity())
     }
     fn rotate(axis: <Self as Geometry3<T>>::Dir, phi: T) -> <Self as Geometry3<T>>::Map {
         Homogenous3::new(Shift::identity(), Rotation3::new(axis, phi))
@@ -27,6 +28,9 @@ impl<T: Scalar> Geometry3<T> for Euclidean3<T> {
 
     fn origin() -> Self::Pos {
         Self::Pos::zero()
+    }
+    fn default_dir() -> Self::Dir {
+        Self::Dir::from([T::zero(), T::zero(), -T::one()])
     }
 
     fn dir_to_local(_pos: Self::Pos, dir: Self::Dir) -> Self::Dir {

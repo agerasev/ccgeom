@@ -30,6 +30,9 @@ impl<T: Scalar> Geometry3<T> for Hyperbolic3<T> {
     fn origin() -> Self::Pos {
         Quaternion::j()
     }
+    fn default_dir() -> Self::Dir {
+        Quaternion::j()
+    }
 
     fn dir_to_local(_pos: Self::Pos, dir: Self::Dir) -> <Eu3<T> as Geometry3<T>>::Dir {
         let (x, y, z, _) = dir.into();
