@@ -37,7 +37,7 @@ fn look_at_the_point() {
         let q: Vector<f64, 3> = rng.sample(&Normal);
         let p: Vector<f64, 3> = Eu3::look_at_pos(q).apply_pos(q);
 
-        assert_abs_diff_eq!(p.as_array()[..2], [0.0, 0.0], epsilon = EPS);
+        assert_abs_diff_eq!(p, Vector::from([0.0, 0.0, -q.length()]), epsilon = EPS);
     }
 }
 

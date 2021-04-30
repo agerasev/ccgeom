@@ -75,7 +75,7 @@ impl<T: Scalar> Geometry3<T> for Euclidean3<T> {
         Self::look_at_dir(pos.normalize())
     }
     fn look_at_dir(dir: Self::Dir) -> Self::Map {
-        Homogenous3::new(Shift::identity(), Rotation3::look_at_any(dir))
+        Homogenous3::new(Shift::identity(), Rotation3::look_at_any(dir).inv())
     }
 
     fn move_at_pos(pos: Self::Pos) -> Self::Map {
