@@ -2,7 +2,7 @@ use vecmat::{complex::{Complex, Quaternion, Moebius}, distr::Normal};
 use approx::assert_abs_diff_eq;
 use rand::{Rng, SeedableRng, distributions::Uniform as Uniform};
 use rand_xorshift::XorShiftRng;
-use crate::{Geometry3, Map, hyperbolic::{Hyperbolic3 as Hy3, Poincare3, Poincare3Normal}};
+use crate::{Geometry, Geometry3, Map, hyperbolic::{Hyperbolic3 as Hy3, Poincare3, Poincare3Normal}};
 use std::f64::consts::PI;
 use num_traits::{Zero};
 

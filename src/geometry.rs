@@ -1,6 +1,7 @@
 use crate::{Scalar, Map, euclidean::Euclidean3};
 
-pub trait Geometry3<T: Scalar = f64>: 'static {
+/// N-dimensional geometry.
+pub trait Geometry<T: Scalar = f64>: 'static {
     type Pos;
     type Dir;
     type Map: Map<Self::Pos, Self::Dir>;
@@ -10,11 +11,14 @@ pub trait Geometry3<T: Scalar = f64>: 'static {
     /// Default direction at the point of origin.
     fn default_dir() -> Self::Dir;
 
-    fn dir_to_local(pos: Self::Pos, dir: Self::Dir) -> <Euclidean3<T> as Geometry3<T>>::Dir;
-    fn dir_from_local(pos: Self::Pos, dir: <Euclidean3<T> as Geometry3<T>>::Dir) -> Self::Dir;
-
     fn length(a: Self::Pos) -> T;
     fn distance(a: Self::Pos, b: Self::Pos) -> T;
+}
+
+/// Three-dimensional geometry.
+pub trait Geometry3<T: Scalar = f64>: Geometry<T> {
+    fn dir_to_local(pos: Self::Pos, dir: Self::Dir) -> <Euclidean3<T> as Geometry<T>>::Dir;
+    fn dir_from_local(pos: Self::Pos, dir: <Euclidean3<T> as Geometry<T>>::Dir) -> Self::Dir;
 
     /// Returns the direction of the line at point `dst_pos`
     /// when we know that the line at the point `src_pos` has direction of `src_dir`.

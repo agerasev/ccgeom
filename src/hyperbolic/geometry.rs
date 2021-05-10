@@ -1,7 +1,7 @@
 use std::marker::PhantomData;
 use num_traits::{Zero, One};
 use vecmat::complex::{Complex, Quaternion, Moebius};
-use crate::{Geometry3, Scalar, euclidean::Euclidean3 as Eu3, hyperbolic::Poincare3};
+use crate::{Geometry, Geometry3, Scalar, euclidean::Euclidean3 as Eu3, hyperbolic::Poincare3};
 
 enum EmptyEnum {}
 #[allow(dead_code)]
@@ -22,7 +22,7 @@ impl<T: Scalar> Hyperbolic3<T> {
     }
 }
 
-impl<T: Scalar> Geometry3<T> for Hyperbolic3<T> {
+impl<T: Scalar> Geometry<T> for Hyperbolic3<T> {
     type Pos = Quaternion<T>;
     type Dir = Quaternion<T>;
     type Map = Moebius<Complex<T>>;
@@ -34,21 +34,23 @@ impl<T: Scalar> Geometry3<T> for Hyperbolic3<T> {
         Quaternion::j()
     }
 
-    fn dir_to_local(_pos: Self::Pos, dir: Self::Dir) -> <Eu3<T> as Geometry3<T>>::Dir {
-        let (x, y, z, _) = dir.into();
-        (x, y, z).into()
-    }
-    fn dir_from_local(_pos: Self::Pos, dir: <Eu3<T> as Geometry3<T>>::Dir) -> Self::Dir {
-        let (x, y, z) = dir.into();
-        (x, y, z, T::zero()).into()
-    }
-
     fn length(a: Self::Pos) -> T {
         Self::distance(a, Self::origin())
     }
     fn distance(a: Self::Pos, b: Self::Pos) -> T {
         let x = T::one() + (a - b).norm_sqr() / (T::from(2).unwrap() * a.hz() * b.hz());
         (x + (x*x - T::one()).sqrt()).ln()
+    }
+}
+
+impl<T: Scalar> Geometry3<T> for Hyperbolic3<T> {
+    fn dir_to_local(_pos: Self::Pos, dir: Self::Dir) -> <Eu3<T> as Geometry<T>>::Dir {
+        let (x, y, z, _) = dir.into();
+        (x, y, z).into()
+    }
+    fn dir_from_local(_pos: Self::Pos, dir: <Eu3<T> as Geometry<T>>::Dir) -> Self::Dir {
+        let (x, y, z) = dir.into();
+        (x, y, z, T::zero()).into()
     }
 
     /// Returns the direction of the line at point `dst_pos`
