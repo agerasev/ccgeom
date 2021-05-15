@@ -36,13 +36,13 @@ pub trait Geometry3<T: Scalar = f64>: Geometry<T> {
     fn rotate_y(angle: T) -> Self::Map;
     fn rotate_z(angle: T) -> Self::Map;
 
-    /// Rotatates `pos` around the origin to make the `default_dir` point to it.
+    /// Rotatates `default_dir` around the origin to make it point to `pos`.
     fn look_at_pos(pos: Self::Pos) -> Self::Map;
-    /// Turns `dir` into the `default_dir`.
+    /// Turns `default_dir` into `dir`.
     fn look_at_dir(dir: Self::Dir) -> Self::Map;
 
     // FIXME: Preserve rotation around connection line.
-    /// Returns maping that translates `pos` to the origin preserving orientation
+    /// Returns maping that translates origin to `pos` preserving orientation
     /// relatively to the line that connects the origin to `pos`.
     fn move_at_pos(pos: Self::Pos) -> Self::Map;
     fn move_at_dir(dir: Self::Dir, dist: T) -> Self::Map;

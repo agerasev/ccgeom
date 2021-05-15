@@ -35,9 +35,10 @@ fn look_at_the_point() {
     let mut rng = XorShiftRng::seed_from_u64(0xCCE);
     for _ in 0..SAMPLE_ATTEMPTS {
         let q: Vector<f64, 3> = rng.sample(&Normal);
-        let p: Vector<f64, 3> = Eu3::look_at_pos(q).apply_pos(q);
+        let p: Vector<f64, 3> = Eu3::look_at_pos(q)
+            .apply_pos(Vector::from([0.0, 0.0, -q.length()]));
 
-        assert_abs_diff_eq!(p, Vector::from([0.0, 0.0, -q.length()]), epsilon = EPS);
+        assert_abs_diff_eq!(p, q, epsilon = EPS);
     }
 }
 
@@ -49,9 +50,9 @@ fn move_at_the_point() {
         let q: Vector<f64, 3> = rng.sample(&Normal);
 
         let a: Homogenous3<f64> = Eu3::move_at_pos(p);
-        assert_abs_diff_eq!(a.apply_pos(p), Eu3::origin(), epsilon = EPS);
+        assert_abs_diff_eq!(a.apply_pos(Eu3::origin()), p, epsilon = EPS);
 
         let b: Homogenous3<f64> = Eu3::move_at_pos(q).inv().chain(a);
-        assert_abs_diff_eq!(b.apply_pos(p), q, epsilon = EPS);
+        assert_abs_diff_eq!(b.apply_pos(q), p, epsilon = EPS);
     }
 }

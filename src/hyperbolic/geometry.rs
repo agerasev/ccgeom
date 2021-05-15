@@ -111,31 +111,25 @@ impl<T: Scalar> Geometry3<T> for Hyperbolic3<T> {
         )
     }
 
-    /// Rotatates point `pos` around the origin to make it lay on the z axis.
     fn look_at_pos(pos: Self::Pos) -> Self::Map {
-        // The origin is at *j* (z = 1).
-        let phi = -pos.hy().atan2(pos.hx());
-        let theta = -(T::from(2).unwrap() * pos.hxy().norm()).atan2(pos.norm_sqr() - T::one());
-        Self::rotate_y(theta).chain(Self::rotate_z(phi))
+        let phi = pos.hy().atan2(pos.hx());
+        let theta = (T::from(2).unwrap() * pos.hxy().norm()).atan2(pos.norm_sqr() - T::one());
+        Self::rotate_z(phi).chain(Self::rotate_y(theta))
     }
-    /// Turns direction `dir` to *j*.
     fn look_at_dir(dir: Self::Dir) -> Self::Map {
-        // We look at the top (along the z axis).
         let phi = -dir.hy().atan2(dir.hx());
         let theta = -dir.hxy().norm().atan2(dir.hz());
-        Self::rotate_y(theta).chain(Self::rotate_z(phi))
+        Self::rotate_z(phi).chain(Self::rotate_y(theta))
     }
 
-    /// Translates point `pos` to the origin preserving orientation
-    /// relative to the line that connects `pos` to the origin.
     fn move_at_pos(pos: Self::Pos) -> Self::Map {
         let a = Self::look_at_pos(pos);
-        let b = Self::shift_z(-Self::length(pos));
-        a.inv().chain(b).chain(a)
+        let b = Self::shift_z(Self::length(pos));
+        a.chain(b).chain(a.inv())
     }
     fn move_at_dir(dir: Self::Dir, dist: T) -> Self::Map {
         let a = Self::look_at_dir(dir);
-        let b = Self::shift_z(-dist);
-        a.inv().chain(b).chain(a)
+        let b = Self::shift_z(dist);
+        a.chain(b).chain(a.inv())
     }
 }

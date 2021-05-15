@@ -40,8 +40,8 @@ fn look_at_the_point() {
     let mut rng = XorShiftRng::seed_from_u64(0xCCA);
     for _ in 0..SAMPLE_ATTEMPTS {
         let q: Quaternion<f64> = rng.sample(&Poincare3Normal);
-        let p: Quaternion<f64> = Hy3::look_at_pos(q).apply_pos(q);
 
+        let p: Quaternion<f64> = Hy3::look_at_pos(q).inv().apply_pos(q);
         assert_abs_diff_eq!(p.hxy(), Complex::zero(), epsilon = EPS.sqrt());
     }
 }
@@ -67,10 +67,10 @@ fn move_at_the_point() {
         let p: Quaternion<f64> = rng.sample(&Poincare3Normal);
         let q: Quaternion<f64> = rng.sample(&Poincare3Normal);
 
-        let a: Moebius<Complex<f64>> = Hy3::move_at_pos(p);
+        let a: Moebius<Complex<f64>> = Hy3::move_at_pos(p).inv();
         assert_abs_diff_eq!(a.apply_pos(p), Hy3::origin(), epsilon = EPS);
 
-        let b: Moebius<Complex<f64>> = Hy3::move_at_pos(q).inv().chain(a);
+        let b: Moebius<Complex<f64>> = Hy3::move_at_pos(q).chain(a);
         assert_abs_diff_eq!(b.apply_pos(p), q, epsilon = EPS.sqrt());
     }
 }

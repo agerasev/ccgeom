@@ -1,6 +1,6 @@
 [package]
 name = "ccgeom"
-version = "0.0.4"
+version = "0.0.5"
 authors = ["Alexey Gerasev <alexey.gerasev@gmail.com>"]
 edition = "2018"
 
