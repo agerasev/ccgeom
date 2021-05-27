@@ -3,8 +3,11 @@ use num_traits::{Zero, One};
 use vecmat::complex::{Complex, Quaternion, Moebius};
 use crate::{Geometry, Geometry3, Scalar, euclidean::Euclidean3 as Eu3, hyperbolic::Poincare3};
 
+#[derive(Clone)]
 enum EmptyEnum {}
+
 #[allow(dead_code)]
+#[derive(Clone)]
 pub struct Hyperbolic3<T: Scalar = f64> {
     phantom: PhantomData<T>,
     empty_enum: EmptyEnum,

@@ -1,6 +1,6 @@
 use vecmat::{Transform, transform::Directional, traits::Normalize};
 
-pub trait Map<P, D = P> {
+pub trait Map<P, D = P>: Clone {
     fn identity() -> Self;
 
     fn apply_pos(&self, pos: P) -> P;
@@ -11,7 +11,7 @@ pub trait Map<P, D = P> {
     fn inv(self) -> Self;
 }
 
-impl<A, T> Map<T, T> for A where A: Directional<T>, T: Normalize {
+impl<A, T> Map<T, T> for A where A: Directional<T> + Clone, T: Normalize {
     fn identity() -> Self {
         <A as Transform<T>>::identity()
     }

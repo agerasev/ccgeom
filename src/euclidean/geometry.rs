@@ -4,8 +4,11 @@ use vecmat::{Vector, transform::{Transform, Shift, Rotation3}};
 use crate::{Geometry, Geometry3, Scalar};
 use super::Homogenous3;
 
+#[derive(Clone)]
 enum EmptyEnum {}
+
 #[allow(dead_code)]
+#[derive(Clone)]
 pub struct Euclidean3<T: Scalar = f64> {
     phantom: PhantomData<T>,
     empty_enum: EmptyEnum,

@@ -1,9 +1,9 @@
 use crate::{Scalar, Map, euclidean::Euclidean3};
 
 /// N-dimensional geometry.
-pub trait Geometry<T: Scalar = f64>: 'static {
-    type Pos;
-    type Dir;
+pub trait Geometry<T: Scalar = f64>: Clone + 'static {
+    type Pos: Clone;
+    type Dir: Clone;
     type Map: Map<Self::Pos, Self::Dir>;
 
     /// Point of origin.
