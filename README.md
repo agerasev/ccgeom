@@ -1,6 +1,6 @@
 # ccgeom
 
-Constant curvature geometry.
+Constant curvature geometries toolkit.
 
 ## About
 

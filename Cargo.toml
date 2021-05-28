@@ -1,10 +1,10 @@
 [package]
 name = "ccgeom"
-version = "0.0.5"
+version = "0.1.0"
 authors = ["Alexey Gerasev <alexey.gerasev@gmail.com>"]
 edition = "2018"
 
-description = "Constant curvature geometry"
+description = "Constant curvature geometries toolkit"
 documentation = "https://docs.rs/ccgeom"
 homepage = "https://github.com/agerasev/ccgeom"
 repository = "https://github.com/agerasev/ccgeom"
@@ -15,7 +15,7 @@ license = "MIT/Apache-2.0"
 
 [dependencies]
 num-traits = "0.2"
-vecmat = { path = "../vecmat" }
+vecmat = "0.7"
 rand = "0.8"
 approx = "0.4"
 
